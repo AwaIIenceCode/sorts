@@ -1,29 +1,32 @@
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
 
-void quickSort(int* arr, int left, int right)
+void customSort(int* arr, int size)
 {
-    if (left >= right) return;
-
-    int pivot = arr[right];
-    int partitionIndex = left;
-
-    for (int i = left; i < right; ++i)
+    double sum = 0;
+    for (int i = 0; i < size; ++i)
     {
-        if (arr[i] < pivot)
-        {
-            swap(arr[i], arr[partitionIndex]);
-            ++partitionIndex;
-        }
+        sum += arr[i];
     }
-    swap(arr[partitionIndex], arr[right]);
 
-    quickSort(arr, left, partitionIndex - 1);
-    quickSort(arr, partitionIndex + 1, right);
+    double average = sum / size;
+
+    if (average > 0)
+    {
+        sort(arr, arr + (2 * size / 3));
+    }
+
+    else
+    {
+        sort(arr, arr + (size / 3));
+    }
+
+    reverse(arr + (2 * size / 3), arr + size);
 }
 
-void displayArray(const int* arr, int size)
+void displayArray(const int* arr, int size
 {
     for (int i = 0; i < size; ++i)
     {
@@ -34,13 +37,13 @@ void displayArray(const int* arr, int size)
 
 int main()
 {
-    const int size = 10;
-    int arr[size] = {5, 1, 4, 2, 8, 3, 7, 6, 9, 0};
+    const int size = 12;
+    int arr[size] = {5, -2, 3, 7, -6, 1, 4, 9, -1, 0, 2, -3};
 
     cout << "Original array:\n";
     displayArray(arr, size);
 
-    quickSort(arr, 0, size - 1);
+    customSort(arr, size);
 
     cout << "Sorted array:\n";
     displayArray(arr, size);

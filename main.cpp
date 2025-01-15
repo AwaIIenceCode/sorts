@@ -1,39 +1,65 @@
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
 
-void bubbleSortImproved(int* arr, int size) {
-    bool swapped;
-    for (int i = 0; i < size - 1; ++i) {
-        swapped = false;
-        for (int j = 0; j < size - i - 1; ++j) {
-            if (arr[j] > arr[j + 1]) {
-                swap(arr[j], arr[j + 1]);
-                swapped = true;
-            }
-        }
-        if (!swapped) break;
+void flip(int* pancakes, int size, int index)
+{
+    for (int i = 0; i <= index / 2; ++i)
+    {
+        swap(pancakes[i], pancakes[index - i]);
     }
 }
 
-void displayArray(const int* arr, int size) {
-    for (int i = 0; i < size; ++i) {
-        cout << arr[i] << " ";
+int findMaxIndex(const int* pancakes, int size)
+{
+    int maxIndex = 0;
+    for (int i = 1; i < size; ++i)
+    {
+        if (pancakes[i] > pancakes[maxIndex])
+        {
+            maxIndex = i;
+        }
+    }
+    return maxIndex;
+}
+
+void pancakeSort(int* pancakes, int size)
+{
+    for (int i = size - 1; i > 0; --i)
+    {
+        int maxIndex = findMaxIndex(pancakes, i + 1);
+        if (maxIndex != i)
+        {
+            if (maxIndex > 0)
+            {
+                flip(pancakes, size, maxIndex);
+            }
+            flip(pancakes, size, i);
+        }
+    }
+}
+
+void displayPancakes(const int* pancakes, int size)
+{
+    for (int i = 0; i < size; ++i)
+    {
+        cout << pancakes[i] << " ";
     }
     cout << endl;
 }
 
 int main() {
-    const int size = 10;
-    int arr[size] = {34, 12, 25, 78, 56, 7, 89, 45, 10, 19};
+    const int size = 5;
+    int pancakes[size] = {5, 1, 4, 2, 8};
 
-    cout << "Original array:\n";
-    displayArray(arr, size);
+    cout << "Original stack:\n";
+    displayPancakes(pancakes, size);
 
-    bubbleSortImproved(arr, size);
+    pancakeSort(pancakes, size);
 
-    cout << "Sorted array:\n";
-    displayArray(arr, size);
+    cout << "Sorted stack:\n";
+    displayPancakes(pancakes, size);
 
     return 0;
 }

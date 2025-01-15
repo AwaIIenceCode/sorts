@@ -26,7 +26,7 @@ void customSort(int* arr, int size)
     reverse(arr + (2 * size / 3), arr + size);
 }
 
-void displayArray(const int* arr, int size
+void displayArray(const int* arr, int size)
 {
     for (int i = 0; i < size; ++i)
     {

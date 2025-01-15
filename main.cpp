@@ -2,17 +2,19 @@
 
 using namespace std;
 
-void bubbleSort(int* arr, int size)
+void insertionSort(int* arr, int size)
 {
-    for (int i = 0; i < size - 1; ++i)
+    for (int i = 1; i < size; ++i)
     {
-        for (int j = 0; j < size - i - 1; ++j)
+        int key = arr[i];
+        int j = i - 1;
+
+        while (j >= 0 && arr[j] > key)
         {
-            if (arr[j] > arr[j + 1])
-            {
-                swap(arr[j], arr[j + 1]);
-            }
+            arr[j + 1] = arr[j];
+            --j;
         }
+        arr[j + 1] = key;
     }
 }
 
@@ -33,7 +35,7 @@ int main()
     cout << "Original array:\n";
     displayArray(arr, size);
 
-    bubbleSort(arr, size);
+    insertionSort(arr, size);
 
     cout << "Sorted array:\n";
     displayArray(arr, size);

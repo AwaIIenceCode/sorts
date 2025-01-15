@@ -1,65 +1,42 @@
 #include <iostream>
-#include <algorithm>
 
 using namespace std;
 
-void flip(int* pancakes, int size, int index)
+void bubbleSort(int* arr, int size)
 {
-    for (int i = 0; i <= index / 2; ++i)
+    for (int i = 0; i < size - 1; ++i)
     {
-        swap(pancakes[i], pancakes[index - i]);
-    }
-}
-
-int findMaxIndex(const int* pancakes, int size)
-{
-    int maxIndex = 0;
-    for (int i = 1; i < size; ++i)
-    {
-        if (pancakes[i] > pancakes[maxIndex])
+        for (int j = 0; j < size - i - 1; ++j)
         {
-            maxIndex = i;
-        }
-    }
-    return maxIndex;
-}
-
-void pancakeSort(int* pancakes, int size)
-{
-    for (int i = size - 1; i > 0; --i)
-    {
-        int maxIndex = findMaxIndex(pancakes, i + 1);
-        if (maxIndex != i)
-        {
-            if (maxIndex > 0)
+            if (arr[j] > arr[j + 1])
             {
-                flip(pancakes, size, maxIndex);
+                swap(arr[j], arr[j + 1]);
             }
-            flip(pancakes, size, i);
         }
     }
 }
 
-void displayPancakes(const int* pancakes, int size)
+void displayArray(const int* arr, int size)
 {
     for (int i = 0; i < size; ++i)
     {
-        cout << pancakes[i] << " ";
+        cout << arr[i] << " ";
     }
     cout << endl;
 }
 
-int main() {
-    const int size = 5;
-    int pancakes[size] = {5, 1, 4, 2, 8};
+int main()
+{
+    const int size = 10;
+    int arr[size] = {5, 1, 4, 2, 8, 3, 7, 6, 9, 0};
 
-    cout << "Original stack:\n";
-    displayPancakes(pancakes, size);
+    cout << "Original array:\n";
+    displayArray(arr, size);
 
-    pancakeSort(pancakes, size);
+    bubbleSort(arr, size);
 
-    cout << "Sorted stack:\n";
-    displayPancakes(pancakes, size);
+    cout << "Sorted array:\n";
+    displayArray(arr, size);
 
     return 0;
 }
